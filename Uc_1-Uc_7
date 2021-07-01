@@ -1,0 +1,270 @@
+MSSQL DB
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| payroll            |
+| performance_schema |
+| shreyas            |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> create database payroll_service;
+Query OK, 1 row affected (0.09 sec)
+
+mysql> use payroll_service;
+Database changed
+mysql> create table employee_Payroll(emp_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,emp_name VARCHAR(100) NOT NULL,emp_salary DOUBLE NOT NULL,emp_start_date DATE NOT NULL);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> DESC EMPLOYEE_PAYROLL;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| emp_id         | int          | NO   | PRI | NULL    | auto_increment |
+| emp_name       | varchar(100) | NO   |     | NULL    |                |
+| emp_salary     | double       | NO   |     | NULL    |                |
+| emp_start_date | date         | NO   |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> insert into EMPLOYEE_PAYROLL values(1001,'Oliver',47000,'2016-11-24');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into EMPLOYEE_PAYROLL values(1002,'George',35000,'2019-03-06');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EMPLOYEE_PAYROLL values(1003,'Harry',50000,'2016-10-15');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EMPLOYEE_PAYROLL values(1004,'Jacob',55000,'2013-01-29');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EMPLOYEE_PAYROLL values(1005,'Thomas',82000,'2010-07-22');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EMPLOYEE_PAYROLL values(1006,'Tony',88000,'2012-04-22');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into EMPLOYEE_PAYROLL values(1007,'Steve',92000,'2009-05-27');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from EMPLOYEE_PAYROLL;
++--------+----------+------------+----------------+
+| emp_id | emp_name | emp_salary | emp_start_date |
++--------+----------+------------+----------------+
+|   1001 | Oliver   |      47000 | 2016-11-24     |
+|   1002 | George   |      35000 | 2019-03-06     |
+|   1003 | Harry    |      50000 | 2016-10-15     |
+|   1004 | Jacob    |      55000 | 2013-01-29     |
+|   1005 | Thomas   |      82000 | 2010-07-22     |
+|   1006 | Tony     |      88000 | 2012-04-22     |
+|   1007 | Steve    |      92000 | 2009-05-27     |
++--------+----------+------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> select *from EMPLOYEE_PAYROLL WHERE emp_id=1005;
++--------+----------+------------+----------------+
+| emp_id | emp_name | emp_salary | emp_start_date |
++--------+----------+------------+----------------+
+|   1005 | Thomas   |      82000 | 2010-07-22     |
++--------+----------+------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select *from EMPLOYEE_PAYROLL WHERE emp_start_date='2012-04-22';
++--------+----------+------------+----------------+
+| emp_id | emp_name | emp_salary | emp_start_date |
++--------+----------+------------+----------------+
+|   1006 | Tony     |      88000 | 2012-04-22     |
++--------+----------+------------+----------------+
+1 row in set (0.07 sec)
+
+mysql> select *from EMPLOYEE_PAYROLL WHERE emp_name='Harry';
++--------+----------+------------+----------------+
+| emp_id | emp_name | emp_salary | emp_start_date |
++--------+----------+------------+----------------+
+|   1003 | Harry    |      50000 | 2016-10-15     |
++--------+----------+------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select emp_salary FROM EMPLOYEE_PAYROLL WHERE emp_id=1001;
++------------+
+| emp_salary |
++------------+
+|      47000 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select emp_start_date FROM EMPLOYEE_PAYROLL WHERE emp_id=1004;
++----------------+
+| emp_start_date |
++----------------+
+| 2013-01-29     |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select NOW();
++---------------------+
+| NOW()               |
++---------------------+
+| 2021-06-15 16:56:20 |
++---------------------+
+1 row in set (0.07 sec)
+
+mysql> SELECT * FROM EMPLOYEE_PAYROLL WHERE emp_start_date BETWEEN CAST('2016-10-15' AS DATE) AND DATE(NOW());
++--------+----------+------------+----------------+
+| emp_id | emp_name | emp_salary | emp_start_date |
++--------+----------+------------+----------------+
+|   1001 | Oliver   |      47000 | 2016-11-24     |
+|   1002 | George   |      35000 | 2019-03-06     |
+|   1003 | Harry    |      50000 | 2016-10-15     |
++--------+----------+------------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE_PAYROLL WHERE emp_start_date BETWEEN CAST('2012-10-15' AS DATE) AND DATE(NOW());
++--------+----------+------------+----------------+
+| emp_id | emp_name | emp_salary | emp_start_date |
++--------+----------+------------+----------------+
+|   1001 | Oliver   |      47000 | 2016-11-24     |
+|   1002 | George   |      35000 | 2019-03-06     |
+|   1003 | Harry    |      50000 | 2016-10-15     |
+|   1004 | Jacob    |      55000 | 2013-01-29     |
++--------+----------+------------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEE_PAYROLL ADD emp_gender CHAR(1) AFTER emp_name;
+Query OK, 7 rows affected (0.22 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> DESC EMPLOYEE_PAYROLL;
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| emp_id         | int          | NO   | PRI | NULL    | auto_increment |
+| emp_name       | varchar(100) | NO   |     | NULL    |                |
+| emp_gender     | char(1)      | YES  |     | NULL    |                |
+| emp_salary     | double       | NO   |     | NULL    |                |
+| emp_start_date | date         | NO   |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+mysql> UPDATE EMPLOYEE_PAYROLL SET emp_gender='F' WHERE emp_name='jacob';
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEE_PAYROLL SET emp_gender='M' WHERE emp_id=1001;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEE_PAYROLL SET emp_gender='M' WHERE emp_id=1002;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEE_PAYROLL SET emp_gender='M' WHERE emp_id=1003;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEE_PAYROLL SET emp_gender='M' WHERE emp_id=1005;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEE_PAYROLL SET emp_gender='M' WHERE emp_id=1006;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEE_PAYROLL SET emp_gender='M' WHERE emp_id=1007;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from EMPLOYEE_PAYROLL;
+
+mysql> select *from EMPLOYEE_PAYROLL;
++--------+----------+------------+------------+----------------+
+| emp_id | emp_name | emp_gender | emp_salary | emp_start_date |
++--------+----------+------------+------------+----------------+
+|   1001 | Oliver   | M          |      47000 | 2016-11-24     |
+|   1002 | George   | M          |      35000 | 2019-03-06     |
+|   1003 | Harry    | M          |      50000 | 2016-10-15     |
+|   1004 | Jacob    | F          |      55000 | 2013-01-29     |
+|   1005 | Thomas   | M          |      82000 | 2010-07-22     |
+|   1006 | Tony     | M          |      88000 | 2012-04-22     |
+|   1007 | Steve    | M          |      92000 | 2009-05-27     |
++--------+----------+------------+------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> select sum(emp_salary) from EMPLOYEE_PAYROLL WHERE emp_gender='F' GROUP BY emp_gender;
++-----------------+
+| sum(emp_salary) |
++-----------------+
+|           55000 |
++-----------------+
+1 row in set (0.07 sec)
+
+mysql> select sum(emp_salary) from EMPLOYEE_PAYROLL WHERE emp_gender='M' GROUP BY emp_gender;
++-----------------+
+| sum(emp_salary) |
++-----------------+
+|          394000 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select MIN(emp_salary) from EMPLOYEE_PAYROLL WHERE emp_gender='M' GROUP BY emp_gender;
++-----------------+
+| MIN(emp_salary) |
++-----------------+
+|           35000 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select max(emp_salary) from employee_payroll where emp_gender='M' group by gender;
+ERROR 1054 (42S22): Unknown column 'gender' in 'group statement'
+mysql> select max(emp_salary) from employee_payroll where emp_gender='M' group by emp_gender;
++-----------------+
+| max(emp_salary) |
++-----------------+
+|           92000 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(emp_salary) from employee_payroll where emp_gender='M' group by emp_gender;
++-------------------+
+| avg(emp_salary)   |
++-------------------+
+| 65666.66666666667 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(emp_salary) from employee_payroll where emp_gender='M' group by emp_gender;
++-------------------+
+| count(emp_salary) |
++-------------------+
+|                 6 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(emp_id) from employee_payroll;
++---------------+
+| count(emp_id) |
++---------------+
+|             7 |
++---------------+
+1 row in set (0.06 sec)
+
+mysql> select count(emp_id) from employee_payroll where emp_start_date='2016-11-24' group by emp_start_date;
++---------------+
+| count(emp_id) |
++---------------+
+|             1 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select emp_gender, avg(emp_salary) from employee_payroll group by emp_gender;
++------------+-------------------+
+| emp_gender | avg(emp_salary)   |
++------------+-------------------+
+| M          | 65666.66666666667 |
+| F          |             55000 |
++------------+-------------------+
+2 rows in set (0.05 sec)
